@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daily Shayari</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2rem; }
+    #shayari { font-size: 1.5rem; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <h1>✨ Shayari of the Day ✨</h1>
+  <div id="shayari">Loading…</div>
+  <script>
+    // ← Paste your Apps Script Web App URL here:
+    const endpoint = 'https://script.google.com/macros/s/XXXXXXXXXXXX/exec';
+
+    fetch(endpoint)
+      .then(res => res.json())
+      .then(arr => {
+        if (!arr.length) {
+          document.getElementById('shayari').innerText =
+            'कोई शायरी अभी उपलब्ध नहीं है। कृपया बाद में आएं।';
+          return;
+        }
+        // pick a random Shayari text
+        const pick = arr[
+          Math.floor(Math.random() * arr.length)
+        ].text;
+        document.getElementById('shayari').innerText = pick;
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('shayari').innerText =
+          'कुछ गड़बड़ हो गई, कृपया बाद में आएं।';
+      });
+  </script>
+</body>
+</html>
